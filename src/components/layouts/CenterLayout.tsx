@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import Footer from "../sections/footer/Footer";
 
 const CenterLayout = () => {
   return (
@@ -6,6 +7,7 @@ const CenterLayout = () => {
       <main>
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 };
