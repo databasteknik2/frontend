@@ -36,6 +36,13 @@ const Header = () => {
           </Link>
         </div>
       </div>
+
+      <li className="nav-link">
+      <NavLink to="/admin" style={({ isActive }) => ({ color: isActive ? 'red' : 'inherit' })}>
+        Admin
+      </NavLink>
+      </li>
+      
     </header>
   );
 };

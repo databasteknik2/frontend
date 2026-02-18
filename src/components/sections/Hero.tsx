@@ -1,42 +1,54 @@
 import React, { useEffect, useState } from "react";
-import "./Hero.css";
-import type { HeroDto } from "../types/HeroDto";
+import "./Hero.css"; 
+import type { HeroDto } from "../../types/HeroDto";
 
-const Hero: React.FC = () => {
-  const [heroes, setHeroes] = useState<HeroDto[]>([]);
+  const Hero: React.FC = () => {
+  const [courses, setCourses] = useState<HeroDto[]>([]); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchHeroes = async () => {
+    const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:5054/api/heroes");
+        const response = await fetch("http://localhost:5054/api/courses");
         const data: HeroDto[] = await response.json();
-        setHeroes(data);
+        setCourses(data);
       } catch (error) {
-        console.error("Error fetching hero data:", error);
+        console.error("Error fetching course data:", error);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchHeroes();
+    fetchCourses();
   }, []);
+
+  if (loading) {
+    return <section className="hero-section"><div>Laddar...</div></section>;
+  }
+
+  const featuredCourse = courses[0];
 
   return (
     <section className="hero-section">
       <div className="container">
-        {heroes.map((hero) => (
-          <div key={hero.id} className="hero-content">
+        {featuredCourse ? (
+          <div className="hero-content">
             <div className="hero-text">
-              <h1>{hero.title}</h1>
-              <p>{hero.description}</p>
-              <a href="#courses" className="btn-primary">
-                Browse Courses
+              <h1>{featuredCourse.title}</h1>
+              <p>{featuredCourse.description}</p>
+              <a href={`/courses/${featuredCourse.id}`} className="btn-primary">
+                Läs mer om kursen
               </a>
             </div>
-            {hero.imageUrl && (
+            {}
+            {featuredCourse.imageUrl && (
               <div className="hero-image">
-                <img src={hero.imageUrl} alt={hero.title} />
+                <img src={featuredCourse.imageUrl} alt={featuredCourse.title} />
               </div>
             )}
           </div>
-        ))}
+        ) : (
+          <h1>Välkommen till vår skola!</h1>
+        )}
       </div>
     </section>
   );

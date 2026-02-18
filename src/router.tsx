@@ -19,6 +19,8 @@ import MyBookingPage from "./components/pages/my/MyBookingsPage";
 import MyProfilePage from "./components/pages/my/MyProfilePage";
 import MySettingsPage from "./components/pages/my/MySettingsPage";
 import CourseDetailsPage from "./components/pages/CourseDetailsPage";
+import ContactPage from "./components/pages/ContactPage";
+import OffersPage from "./components/pages/OffersPage";
 
 export const router = createBrowserRouter([
   {
@@ -94,4 +96,14 @@ export const router = createBrowserRouter([
       { path: "*", handle: { title: "Not found" }, element: <NotFound /> },
     ],
   },
+
+  {
+  element: <AppLayout />,
+  children: [
+    { path: "/", element: <HomePage /> },
+    { path: "/courses", element: <CoursesPage /> },
+    { path: "/contact", element: <ContactPage /> }, 
+    { path: "/offers", element: <OffersPage /> },   
+  ],
+},
 ]);
